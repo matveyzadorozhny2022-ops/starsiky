@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STARSIKY ⭐</title>
+
+  <!-- Шрифт Intro -->
+  <link href="https://fonts.cdnfonts.com/css/intro" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #000;
+      --yellow: #ffd900;
+      --white: #fff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Intro', sans-serif;
+      background: radial-gradient(circle at center, #0a0a0a, #000);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* === BACKGROUND STARS === */
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--yellow);
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* === HEADER === */
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #fff, var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 217, 0, 0.5);
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease-out forwards 0.5s;
+      letter-spacing: 4px;
+    }
+
+    .subtitle {
+      color: #bbb;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease-out forwards 0.8s;
+    }
+
+    /* === BUTTONS === */
+    .cta {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards 1.2s;
+      z-index: 2;
+    }
+
+    .cta a {
+      text-decoration: none;
+      border: 2px solid var(--yellow);
+      color: var(--yellow);
+      font-weight: 700;
+      padding: 16px 45px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,217,0,0.4), transparent);
+      transition: 0.5s;
+    }
+
+    .cta a:hover::before {
+      left: 100%;
+    }
+
+    .cta a:hover {
+      background: var(--yellow);
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--yellow);
+    }
+
+    /* === SLOT COUNTER === */
+    .stats {
+      margin-top: 60px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards 1.8s;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .stats h2 {
+      font-size: 1.6rem;
+      color: var(--yellow);
+    }
+
+    .counter-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .slot {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--yellow);
+      border-radius: 20px;
+      padding: 10px 25px;
+      box-shadow: 0 0 25px rgba(255, 217, 0, 0.3);
+    }
+
+    .digit {
+      font-family: 'Intro', sans-serif;
+      font-size: 2.5rem;
+      color: var(--white);
+      text-shadow: 0 0 20px var(--yellow);
+      margin: 0 3px;
+      width: 1ch;
+      height: 2.8rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .digit span {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      animation: roll 0.5s ease-out forwards;
+    }
+
+    @keyframes roll {
+      0% { transform: translateY(100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .counter-logo {
+      width: 45px;
+      height: 45px;
+      filter: drop-shadow(0 0 10px var(--yellow));
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #777;
+      font-size: 0.9rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards 2.5s;
+      z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .cta a { font-size: 1rem; padding: 14px 30px; }
+      .digit { font-size: 2rem; height: 2.3rem; }
+      .counter-logo { width: 35px; height: 35px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Stars -->
+  <div class="stars" id="stars"></div>
+
+  <main>
+    <h1>STARSIKY ⭐</h1>
+    <p class="subtitle">Движ, которому доверяют</p>
+
+    <div class="cta">
+      <a href="https://t.me/Freestarsiky_bot?start=Reffstarss" target="_blank">Перейти в Бот</a>
+      <a href="https://t.me/starsikyoff" target="_blank">Канал Проекта</a>
+    </div>
+
+    <div class="stats">
+      <h2>Выплачено звёзд пользователям:</h2>
+      <div class="counter-wrap">
+        <div class="slot" id="slot"></div>
+        <img src="assets/logo.png" alt="Starsiky Logo" class="counter-logo">
+      </div>
+    </div>
+  </main>
+
+  <footer>© 2025 Starsiky. Все права защищены.</footer>
+
+  <script>
+    // === BACKGROUND STARS ===
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.opacity = Math.random();
+      starsContainer.appendChild(star);
+    }
+
+    // === SLOT COUNTER ===
+    const slot = document.getElementById('slot');
+    const digits = 6;
+    let value = 450000;
+    for (let i = 0; i < digits; i++) {
+      const d = document.createElement('div');
+      d.classList.add('digit');
+      const span = document.createElement('span');
+      span.textContent = "0";
+      d.appendChild(span);
+      slot.appendChild(d);
+    }
+
+    function updateSlot() {
+      const increment = Math.floor(Math.random() * 6) + 1; // добавляем 1–6 звёзд
+      value += increment;
+      const newValue = value.toString().padStart(digits, '0');
+      const spans = slot.querySelectorAll('.digit span');
+
+      spans.forEach((span, i) => {
+        const newDigit = newValue[i];
+        const newSpan = document.createElement('span');
+        newSpan.textContent = newDigit;
+        span.parentNode.appendChild(newSpan);
+        newSpan.style.animation = 'roll 0.5s ease-out forwards';
+        setTimeout(() => {
+          span.remove();
+        }, 500);
+      });
+    }
+
+    setInterval(updateSlot, 3000); // каждые 3 секунды
+  </script>
+</body>
+</html>
