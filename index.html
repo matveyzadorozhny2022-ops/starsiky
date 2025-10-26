@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STARSIKY ⭐</title>
-
   <link href="https://fonts.cdnfonts.com/css/intro" rel="stylesheet">
-
   <style>
     :root {
       --yellow: #ffd900;
@@ -15,181 +13,70 @@
       --gray-star: #444;
       --black: #000;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Intro', sans-serif;
       background: radial-gradient(circle at center, #0a0a1a, #000010, #000);
       color: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-      text-align: center;
-      position: relative;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; overflow: hidden; text-align: center; position: relative;
     }
-
-    /* === STARS BACKGROUND === */
-    .stars {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
+    .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
     .star {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      clip-path: polygon(
-        50% 0%, 61% 35%, 98% 35%, 
-        68% 57%, 79% 91%, 50% 70%, 
-        21% 91%, 32% 57%, 2% 35%, 
-        39% 35%
-      );
-      background: var(--gray-star);
-      opacity: 0.4;
-      animation: twinkle 5s infinite ease-in-out;
+      position: absolute; width: 12px; height: 12px;
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      background: var(--gray-star); opacity: 0.4; animation: twinkle 5s infinite ease-in-out;
     }
-
     @keyframes twinkle {
-      0%, 100% {
-        background: var(--gray-star);
-        opacity: 0.3;
-        transform: scale(0.9) rotate(0deg);
-      }
-      50% {
-        background: var(--yellow);
-        opacity: 0.9;
-        transform: scale(1.3) rotate(8deg);
-      }
+      0%,100%{background:var(--gray-star);opacity:0.3;transform:scale(0.9);}
+      50%{background:var(--yellow);opacity:0.9;transform:scale(1.3);}
     }
-
-    /* === HEADER === */
     h1 {
       font-size: 3rem;
-      background: linear-gradient(90deg, #fff, var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(255, 217, 0, 0.5);
-      margin-bottom: 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1s ease-out forwards 0.5s;
-      letter-spacing: 4px;
-      z-index: 2;
+      background: linear-gradient(90deg,#fff,var(--yellow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(255,217,0,0.5);
+      margin-bottom: 20px; opacity: 0; transform: translateY(20px);
+      animation: fadeIn 1s ease-out forwards 0.5s; letter-spacing: 4px; z-index: 2; cursor: pointer;
     }
-
-    .subtitle {
-      color: #bbb;
-      font-size: 1.1rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1s ease-out forwards 0.8s;
-      z-index: 2;
-    }
-
-    /* === BUTTONS === */
+    .subtitle { color:#bbb; font-size:1.1rem; opacity:0; transform:translateY(20px);
+      animation:fadeIn 1s ease-out forwards 0.8s; z-index:2; }
     .cta {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards 1.2s;
-      z-index: 2;
+      margin-top:40px; display:flex; flex-direction:column; gap:18px; opacity:0;
+      animation:fadeIn 1s ease-out forwards 1.2s; z-index:2;
     }
-
     .cta a {
-      text-decoration: none;
-      border: 2px solid var(--yellow);
-      color: var(--yellow);
-      font-weight: 700;
-      padding: 16px 45px;
-      border-radius: 12px;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      text-decoration:none; border:2px solid var(--yellow); color:var(--yellow);
+      font-weight:700; padding:16px 45px; border-radius:12px; font-size:1.2rem;
+      text-transform:uppercase; letter-spacing:1px; transition:all 0.3s;
+      position:relative; overflow:hidden;
     }
-
-    .cta a:hover {
-      background: var(--yellow);
-      color: #000;
-      transform: scale(1.05);
-      box-shadow: 0 0 25px var(--yellow);
-    }
-
-    .cta a:active {
-      transform: scale(0.95);
-    }
-
-    .cta a.animate-click {
-      animation: clickEffect 1s forwards;
-    }
-
+    .cta a:hover { background:var(--yellow); color:#000; transform:scale(1.05); box-shadow:0 0 25px var(--yellow); }
+    .cta a.animate-click { animation: clickEffect 1s forwards; }
     @keyframes clickEffect {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 var(--yellow);
-      }
-      50% {
-        transform: scale(0.95);
-        box-shadow: 0 0 30px var(--yellow);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 transparent;
-      }
+      0%{transform:scale(1);box-shadow:0 0 0 var(--yellow);}
+      50%{transform:scale(0.95);box-shadow:0 0 30px var(--yellow);}
+      100%{transform:scale(1);box-shadow:0 0 0 transparent;}
     }
-
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      margin-top: 60px;
-      color: #777;
-      font-size: 0.9rem;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards 2.5s;
-      z-index: 2;
-    }
-
-    /* === MOBILE === */
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      .cta a { font-size: 1rem; padding: 14px 30px; }
-    }
+    @keyframes fadeIn { to{opacity:1;transform:translateY(0);} }
+    footer{margin-top:60px;color:#777;font-size:0.9rem;opacity:0;animation:fadeIn 1s ease-out forwards 2.5s;z-index:2;}
   </style>
 </head>
 <body>
   <div class="stars" id="stars"></div>
-
   <main>
-    <h1>STARSIKY ⭐</h1>
+    <h1 id="title">STARSIKY ⭐</h1>
     <p class="subtitle">Движ, которому доверяют</p>
-
     <div class="cta">
-      <a href="https://t.me/Freestarsiky_bot?start=Reffstarss" target="_blank">Перейти в Бот</a>
-      <a href="https://t.me/starsikyoff" target="_blank">Канал Проекта</a>
-      <a href="https://t.me/starssreff" target="_blank">Отзывы</a>
+      <a href="https://t.me/Freestarsiky_bot?start=Reffstarss" data-btn="bot">Перейти в Бот</a>
+      <a href="https://t.me/starsikyoff" data-btn="channel">Канал Проекта</a>
+      <a href="https://t.me/starssreff" data-btn="reviews">Отзывы</a>
     </div>
   </main>
-
   <footer>© 2025 Starsiky. Все права защищены.</footer>
 
   <script>
-    // === STARS ===
+    // Звёзды
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 80; i++) {
       const star = document.createElement('div');
@@ -197,22 +84,45 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.left = Math.random() * 100 + '%';
       star.style.animationDelay = Math.random() * 5 + 's';
-      star.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.5 + Math.random() * 1.5})`;
       starsContainer.appendChild(star);
     }
 
-    // === BUTTON CLICK ANIMATION ===
+    // === СЧЁТЧИК ПОСЕЩЕНИЙ ===
+    const visits = JSON.parse(localStorage.getItem('visitStats') || '[]');
+    visits.push({ time: Date.now() });
+    localStorage.setItem('visitStats', JSON.stringify(visits));
+
+    // === ОТСЛЕЖИВАНИЕ КЛИКОВ ===
+    function recordClick(btnName) {
+      const data = JSON.parse(localStorage.getItem('clickStats') || '[]');
+      data.push({ button: btnName, time: Date.now() });
+      localStorage.setItem('clickStats', JSON.stringify(data));
+    }
+
     const buttons = document.querySelectorAll('.cta a');
     buttons.forEach(btn => {
       btn.addEventListener('click', e => {
         e.preventDefault();
         const link = btn.getAttribute('href');
+        const name = btn.dataset.btn;
         btn.classList.add('animate-click');
+        recordClick(name);
         setTimeout(() => {
           window.open(link, '_blank');
           btn.classList.remove('animate-click');
-        }, 1000); // 1 секунда анимации перед переходом
+        }, 1000);
       });
+    });
+
+    // === ВХОД В АДМИН ===
+    let clicks = 0;
+    document.getElementById('title').addEventListener('click', () => {
+      clicks++;
+      if (clicks >= 5) {
+        clicks = 0;
+        window.open('admin.html', '_blank');
+      }
+      setTimeout(() => (clicks = 0), 3000);
     });
   </script>
 </body>
