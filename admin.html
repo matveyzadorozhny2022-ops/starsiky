@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | STARSIKY</title>
+  <link href="https://fonts.cdnfonts.com/css/intro" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family:'Intro',sans-serif;
+      background:radial-gradient(circle at center,#0a0a1a,#000010,#000);
+      color:#fff;margin:0;padding:0;
+      display:flex;flex-direction:column;align-items:center;
+      min-height:100vh;text-align:center;overflow-x:hidden;
+    }
+    h1{margin-top:30px;font-size:2rem;
+      background:linear-gradient(90deg,#fff,#ffd900);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .section{width:90%;max-width:550px;margin:30px auto;}
+    canvas{
+      background:rgba(255,255,255,0.05);
+      border-radius:16px;padding:15px;
+      box-shadow:0 0 20px rgba(255,217,0,0.1);
+      transition:0.3s;
+    }
+    canvas:hover{box-shadow:0 0 35px rgba(255,217,0,0.25);}
+    .stars{position:fixed;inset:0;z-index:0;overflow:hidden;}
+    .star{position:absolute;width:10px;height:10px;
+      clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      background:#444;opacity:0.3;animation:twinkle 5s infinite ease-in-out;}
+    @keyframes twinkle{
+      0%,100%{opacity:0.3;transform:scale(1);}
+      50%{opacity:0.9;transform:scale(1.3);background:#ffd900;}
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <h1>📊 Статистика</h1>
+  <div class="section">
+    <h3>Посещения сайта</h3>
+    <canvas id="visitChart"></canvas>
+  </div>
+  <div class="section">
+    <h3>Нажатия на кнопки</h3>
+    <canvas id="btnChart"></canvas>
+  </div>
+
+  <script>
+    // фон
+    const starsContainer=document.getElementById('stars');
+    for(let i=0;i<70;i++){
+      const s=document.createElement('div');
+      s.classList.add('star');
+      s.style.top=Math.random()*100+'%';
+      s.style.left=Math.random()*100+'%';
+      s.style.animationDelay=Math.random()*5+'s';
+      starsContainer.appendChild(s);
+    }
+
+    const now=Date.now();
+    const day=24*60*60*1000;
+    const month=30*day;
+
+    // === ПОСЕЩЕНИЯ ===
+    const visits=JSON.parse(localStorage.getItem('visitStats')||'[]');
+    const visitDay=visits.filter(v=>now-v.time<day).length;
+    const visitMonth=visits.filter(v=>now-v.time<month).length;
+    const visitTotal=visits.length;
+
+    // === КЛИКИ ===
+    const clicks=JSON.parse(localStorage.getItem('clickStats')||'[]');
+    const btns=['bot','channel','reviews'];
+    const labels=['Бот','Канал','Отзывы'];
+    const get=(b,r)=>clicks.filter(c=>c.button===b&&now-c.time<r).length;
+    const btnDay=btns.map(b=>get(b,day));
+    const btnMonth=btns.map(b=>get(b,month));
+    const btnTotal=btns.map(b=>clicks.filter(c=>c.button===b).length);
+
+    // === ГРАФИК ПОСЕЩЕНИЙ ===
+    new Chart(document.getElementById('visitChart'),{
+      type:'bar',
+      data:{
+        labels:['24 часа','Месяц','Всё время'],
+        datasets:[{
+          label:'Посещения',
+          data:[visitDay,visitMonth,visitTotal],
+          borderRadius:12,
+          backgroundColor:['#ffe259','#ffa751','#ff8c00'],
+          borderColor:'#ffd900',borderWidth:1
+        }]
+      },
+      options:{
+        responsive:true,
+        animation:{duration:1000,easing:'easeOutQuart'},
+        scales:{
+          y:{beginAtZero:true,ticks:{color:'#fff'}},
+          x:{ticks:{color:'#fff'}}
+        },
+        plugins:{legend:{display:false}}
+      }
+    });
+
+    // === ГРАФИК КНОПОК ===
+    new Chart(document.getElementById('btnChart'),{
+      type:'bar',
+      data:{
+        labels,
+        datasets:[
+          {label:'24 часа',data:btnDay,backgroundColor:'rgba(255,221,0,0.8)',borderRadius:10},
+          {label:'Месяц',data:btnMonth,backgroundColor:'rgba(255,170,0,0.8)',borderRadius:10},
+          {label:'Всё время',data:btnTotal,backgroundColor:'rgba(255,120,0,0.8)',borderRadius:10}
+        ]
+      },
+      options:{
+        responsive:true,
+        animation:{duration:1000,easing:'easeOutQuart'},
+        scales:{
+          y:{beginAtZero:true,ticks:{color:'#fff'}},
+          x:{ticks:{color:'#fff'}}
+        },
+        plugins:{
+          legend:{labels:{color:'#fff'}},
+          tooltip:{backgroundColor:'rgba(0,0,0,0.7)',titleColor:'#ffd900',bodyColor:'#fff'}
+        }
+      }
+    });
+  </script>
+</body>
+</html>
